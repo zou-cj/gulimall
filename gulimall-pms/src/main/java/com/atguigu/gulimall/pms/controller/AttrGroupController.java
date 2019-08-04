@@ -7,6 +7,7 @@ import java.util.Map;
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.atguigu.gulimall.pms.vo.AttrGroupWithAttrsVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,32 @@ import com.atguigu.gulimall.pms.service.AttrGroupService;
 public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
+
+
+
+
+    /***
+     * /pms/attrgroup/info/withattrs/{attrGroupId}
+     *
+     */
+    @ApiOperation("查询某个分组及分组下的所有属性信息")
+    @GetMapping("info/withattrs/{attrGroupId}")
+    public Resp<AttrGroupWithAttrsVo> listAllAttrInfoByGroupId(@PathVariable(required = true) Integer attrGroupId) {
+        AttrGroupWithAttrsVo attrGroupWithAttrsVo = attrGroupService.queryAllGroupsInfoByGroupId(attrGroupId);
+
+        return Resp.ok(attrGroupWithAttrsVo);
+    }
+
+    /**查询某个三级分类下的所有属性分组
+     * /pms/attrgroup/list/category/225?t=1564885373381&limit=1000
+     */
+    @ApiOperation("查询某个三级分类下的所有属性分组")
+    @GetMapping("/list/category/{catId}")
+    public Resp<PageVo> listCategoryByCatId(QueryCondition queryCondition,@PathVariable(required = true) Integer catId) {
+        PageVo page = attrGroupService.queryPageListCategory(queryCondition,catId);
+
+        return Resp.ok(page);
+    }
 
     /**
      * 列表

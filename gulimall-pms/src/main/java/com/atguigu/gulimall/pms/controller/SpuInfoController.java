@@ -18,7 +18,6 @@ import com.atguigu.gulimall.pms.service.SpuInfoService;
 
 
 
-
 /**
  * spu信息
  *
@@ -32,6 +31,20 @@ import com.atguigu.gulimall.pms.service.SpuInfoService;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    ///pms/spuinfo/simple/search?t=1564820264529&page=1&limit=10&key=&catId=0
+    /**
+     * 搜索显示列表
+     */
+    @ApiOperation("按照spuid,spuname,分类id等查询条件检索商品")
+    @GetMapping("/simple/search")
+    public Resp<PageVo> listSearch(QueryCondition queryCondition,
+                                   @RequestParam Long catId) {
+
+        PageVo page = spuInfoService.queryByConditionAndCatId(queryCondition,catId);
+
+        return Resp.ok(page);
+    }
 
     /**
      * 列表

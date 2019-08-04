@@ -1,12 +1,16 @@
 package com.atguigu.gulimall.pms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.atguigu.gulimall.pms.dao.CategoryDao;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +36,29 @@ import com.atguigu.gulimall.pms.service.CategoryService;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    /**
+     * 获取某个等级下的所有分类
+     */
+    @ApiOperation("查询某等级下的所有")
+    @GetMapping("list/children/tree/{catId}")
+    public Resp<Object> listChildTree(@PathVariable("catId") Integer catId) {
+
+        List<CategoryEntity> data = categoryService.getListChildTree(catId);
+        return Resp.ok(data);
+    }
+
+
+    /**
+     * 获取某个等级下的所有分类
+     */
+    @ApiOperation("查询某等级下的所有分类数据")
+    @GetMapping("list/tree")
+    public Resp<Object> listTree(@RequestParam(value = "level") Integer level) {
+
+        List<CategoryEntity> data = categoryService.getListTree(level);
+        return Resp.ok(data);
+    }
 
     /**
      * 列表

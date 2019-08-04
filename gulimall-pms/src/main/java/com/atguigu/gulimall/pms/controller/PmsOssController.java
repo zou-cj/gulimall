@@ -1,6 +1,5 @@
 package com.atguigu.gulimall.pms.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
@@ -19,7 +18,6 @@ import java.util.Map;
 @RequestMapping("/pms/oss")
 @RestController
 public class PmsOssController {
-
 
     String accessId = "LTAI5sjDzySfEksq";      // 请填写您的AccessKeyId。
     String accessKey = "WUefjkVXBf7ITGnGElmgNe14kji3HN"; // 请填写您的AccessKeySecret。
