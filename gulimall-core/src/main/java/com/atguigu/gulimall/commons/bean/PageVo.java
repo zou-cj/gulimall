@@ -27,19 +27,19 @@ public class PageVo implements Serializable {
 	/**
 	 * 总记录数
 	 */
-	private int totalCount;
+	private long totalCount;
 	/**
 	 * 每页记录数
 	 */
-	private int pageSize;
+	private long pageSize;
 	/**
 	 * 总页数
 	 */
-	private int totalPage;
+	private long totalPage;
 	/**
 	 * 当前页数
 	 */
-	private int currPage;
+	private long currPage;
 	/**
 	 * 列表数据
 	 */
@@ -47,12 +47,12 @@ public class PageVo implements Serializable {
 	
 	/**
 	 * 分页
-	 * @param list        列表数据
-	 * @param totalCount  总记录数
-	 * @param pageSize    每页记录数
-	 * @param currPage    当前页数
-	 */
-	public PageVo(List<?> list, int totalCount, int pageSize, int currPage) {
+     * @param list        列表数据
+     * @param totalCount  总记录数
+     * @param pageSize    每页记录数
+     * @param currPage    当前页数
+     */
+	public PageVo(List<?> list, long totalCount, long pageSize, long currPage) {
 		this.list = list;
 		this.totalCount = totalCount;
 		this.pageSize = pageSize;

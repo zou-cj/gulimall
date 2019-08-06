@@ -16,5 +16,7 @@ import com.atguigu.gulimall.commons.bean.QueryCondition;
 public interface WareSkuService extends IService<WareSkuEntity> {
 
     PageVo queryPage(QueryCondition params);
+
+    WareSkuEntity queryWareskuSku(Long skuId);
 }
 

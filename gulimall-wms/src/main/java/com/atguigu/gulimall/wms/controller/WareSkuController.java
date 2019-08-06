@@ -34,6 +34,20 @@ public class WareSkuController {
     private WareSkuService wareSkuService;
 
     /**
+     * 获取某个sku的库存信息
+     * 请求地址：/wms/waresku/sku/{skuId}
+     */
+    @ApiOperation("分页查询(排序)")
+    @GetMapping("sku/{skuId}")
+//    @PreAuthorize("hasAuthority('wms:waresku:list')")
+    public Resp<WareSkuEntity> wareskuSku(@PathVariable(value = "skuId") Long skuId) {
+        WareSkuEntity wareSkuEntity =  wareSkuService.queryWareskuSku(skuId);
+
+        return Resp.ok(wareSkuEntity);
+    }
+
+
+    /**
      * 列表
      */
     @ApiOperation("分页查询(排序)")

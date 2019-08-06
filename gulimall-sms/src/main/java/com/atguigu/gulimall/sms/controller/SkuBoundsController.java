@@ -1,12 +1,14 @@
 package com.atguigu.gulimall.sms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.atguigu.gulimall.commons.to.SkuSaleInfoTo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,21 @@ import com.atguigu.gulimall.sms.service.SkuBoundsService;
 public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
+
+    /***
+     * 保存sku的所有营销信息
+     * @param to
+     * @return
+     */
+    @PostMapping("saleinfo/save")
+    public Resp<Object> saveSkuSaleInfos(@RequestBody List<SkuSaleInfoTo> to){
+
+        skuBoundsService.saveSkuSaleInfo(to);
+
+        return Resp.ok(null);
+    };
+
+
 
     /**
      * 列表

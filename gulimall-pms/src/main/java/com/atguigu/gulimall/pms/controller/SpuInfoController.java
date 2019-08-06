@@ -1,20 +1,18 @@
 package com.atguigu.gulimall.pms.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.atguigu.gulimall.pms.entity.SpuInfoEntity;
+import com.atguigu.gulimall.pms.service.SpuInfoService;
+import com.atguigu.gulimall.pms.vo.savespu.SpuAllSaveVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gulimall.pms.entity.SpuInfoEntity;
-import com.atguigu.gulimall.pms.service.SpuInfoService;
+import java.util.Arrays;
 
 
 
@@ -31,6 +29,7 @@ import com.atguigu.gulimall.pms.service.SpuInfoService;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
 
     ///pms/spuinfo/simple/search?t=1564820264529&page=1&limit=10&key=&catId=0
     /**
@@ -71,14 +70,14 @@ public class SpuInfoController {
         return Resp.ok(spuInfo);
     }
 
-    /**
-     * 保存
+    /***新增商品
+     *  /pms/spuinfo/save
      */
     @ApiOperation("保存")
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-    public Resp<Object> save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+//    @PreAuthorize("hasAuthority('pms:spuinfo:save')")
+    public Resp<Object> save(@RequestBody SpuAllSaveVo spuAllSaveVo){
+		spuInfoService.saveAllVo(spuAllSaveVo);
 
         return Resp.ok(null);
     }

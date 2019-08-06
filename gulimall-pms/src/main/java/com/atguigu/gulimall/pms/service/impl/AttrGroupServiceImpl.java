@@ -53,8 +53,36 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("catelog_id",catId);
         IPage<AttrGroupEntity> data = this.page(page, queryWrapper);
+        //查出的所有分组  3
+        List<AttrGroupEntity> records = data.getRecords();
 
-        return new PageVo(data);
+
+        //将要返回出去的带分组信息以及他的属性信息的对象
+        List<AttrGroupWithAttrsVo> groupWithAttrs = new ArrayList<AttrGroupWithAttrsVo>(records.size());
+
+        for (AttrGroupEntity record : records) {
+            //1、创建一个vo准备收集所有需要的数据
+            AttrGroupWithAttrsVo vo = new AttrGroupWithAttrsVo();
+            BeanUtils.copyProperties(record,vo);
+
+            Long groupId = record.getAttrGroupId();
+            //获取当前分组的所有属性；
+            List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", groupId));
+            if(relationEntities!=null && relationEntities.size()>0){
+                List<Long> attrIds = new ArrayList<>();
+                for (AttrAttrgroupRelationEntity entity : relationEntities) {
+                    attrIds.add(entity.getAttrId());
+                }
+                //查出当前分组所有真正的属性
+                List<AttrEntity> attrEntities = attrDao.selectList(new QueryWrapper<AttrEntity>().in("attr_id", attrIds));
+                vo.setAttrEntities(attrEntities);
+            }
+            //把这个vo放在集合中
+            groupWithAttrs.add(vo);
+        }
+
+        //(List<?> list, Long totalCount, Long pageSize, Long currPage)
+        return new PageVo(groupWithAttrs,data.getTotal(),data.getSize(),data.getCurrent());
     }
 
     @Override
